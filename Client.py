@@ -23,14 +23,13 @@ while clientMessage != "exit":
     clientMessage = input("Please type the message that you'd like to send (Or type \"exit\" to exit):\n>")
 
     #TODO: Send the message to your server
-    byte2send = str.encode(clientMessage)
+    tcpSocket.send(clientMessage.encode())
 
     #TODO: Receive a reply from the server for the best highway to take
-    tcpSocket.sendall(byte2send)
-    msgFromServer = tcpSocket.recv(1024)
+    response = tcpSocket.recv(1024).decode()
 
     #TODO: Print the best highway to take
-    print("Message from Server {}".format(msgFromServer))
+    print(f"Message from Server {response}")
 
 tcpSocket.close()
 
