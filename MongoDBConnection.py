@@ -46,7 +46,7 @@ def QueryDatabase() -> []:
 		parsed_data = []
 
 		for doc in currentDocuments:
-			parsed_data += [doc["Payload"]]
+			parsed_data += [doc["payload"]]
 
 		#Return that sensor data as a list
 		return parsed_data
