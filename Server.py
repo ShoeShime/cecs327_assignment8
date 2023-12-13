@@ -10,14 +10,13 @@ import sys
 
 maxPacketSize = 1024
 defaultPort = 46960 #TODO: Set this to your preferred port (defaultPort - 46960)
-exitSignal = True
 
 def GetFreePort(minPort: int = 1024, maxPort: int = 65535):
     for i in range(minPort, maxPort):
         print("Testing port", i)
         with contextlib.closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as potentialPort:
             try:
-                potentialPort.bind(('localhost', i))
+                potentialPort.bind(('127.0.0.1', i))
                 potentialPort.close()
                 print("Server listening on port", i)
                 return i
@@ -65,7 +64,7 @@ def ListenOnTCP(tcpSocket: socket.socket, socketAddress):
         avg93 = sum93/count93
 
         fasthwy = min(avg91, avg92, avg93)
-        print(fasthw)
+        print(fasthwy)
         print(avg91, avg92, avg93)
 
         message2Client = ""
@@ -85,7 +84,7 @@ def CreateTCPSocket() -> socket.socket:
     tcpSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     tcpPort = defaultPort
     print("TCP Port:", tcpPort)
-    tcpSocket.bind(('localhost', tcpPort))
+    tcpSocket.bind(('127.0.0.1', tcpPort))
     return tcpSocket
 
 def LaunchTCPThreads():
@@ -99,6 +98,7 @@ def LaunchTCPThreads():
 if __name__ == "__main__":
     tcpThread = threading.Thread(target=LaunchTCPThreads)
     tcpThread.start()
+    exitSignal = True
 
     while not exitSignal:
         time.sleep(1)
